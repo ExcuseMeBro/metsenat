@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import LoginIcon from '../../assets/icons/LoginIcon.vue';
+import ClubLogo from './ClubLogo.vue';
 
 const menus = ref([
   {
@@ -21,14 +22,10 @@ const menus = ref([
 ])
 </script>
 <template>
-  <div class="w-full bg-white shadow-7xl">
+  <div class="relative z-50 w-full bg-white shadow-7xl">
     <div class="container mx-auto">
       <div class="h-[88px] flex items-center justify-between">
-        <div class="h-[31px] flex items-center justify-center space-x-2">
-          <img src="/logo_full.svg" alt="Logo" class="hidden lg:block">
-          <img src="/logo_single.svg" alt="Logo single" class="lg:hidden">
-          <span class="uppercase rounded-[6px] text-[12px] text-white bg-[#E94A47] p-0.5 px-2">club</span>
-        </div>
+        <ClubLogo />
         <div class="flex items-center space-x-10">
           <ul class="items-center hidden space-x-10 md:flex">
             <li v-for="(menu, idx) in menus" :key="menu.id ?? idx" class="text-sm whitespace-nowrap">
@@ -39,7 +36,8 @@ const menus = ref([
             <LoginIcon />
             <p class="font-bold">Kirish</p>
           </router-link>
-          <router-link to="/register" class="border-[#3366FF] text-sm text-[#3366FF] whitespace-nowrap px-8 py-2 border-2 rounded-lg">
+          <router-link to="/register"
+            class="border-[#3366FF] text-sm text-[#3366FF] whitespace-nowrap px-8 py-2 border-2 rounded-lg">
             Ro‘yxatdan o’tish
           </router-link>
         </div>

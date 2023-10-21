@@ -3,9 +3,7 @@ import Navbar from '../components/common/Navbar.vue';
 </script>
 <template>
   <Navbar />
-  <div class="container mx-auto">
-    <router-view></router-view>
-  </div>
+  <router-view></router-view>
 </template>
 
 <style scoped></style>
