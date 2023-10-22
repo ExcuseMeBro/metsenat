@@ -69,15 +69,15 @@ watch(() => commonData.value, (val) => {
         </div>
       </div>
     </div>
-    <div v-else class="flex items-center w-full space-x-7 my-7">
+    <div v-else class="flex flex-col items-center w-full space-y-5 md:space-y-0 md:flex-row md:space-x-7 my-7">
       <div v-for="(card, idx) in totalAmountInfos" :key="idx"
-        class="flex items-center flex-1 h-24 px-6 space-x-4 bg-white rounded-lg">
+        class="flex items-center flex-1 w-full h-24 p-6 space-x-4 bg-white rounded-lg">
         <div :style="`background-color: ${card.color}`" class="flex items-center justify-center w-12 h-12 rounded-xl">
           <MoneyIcon :style="`color: ${card.iconColor}`" />
         </div>
         <div>
-          <p class="font-[400] text-[#7A7A9D]">{{ card.title }}</p>
-          <p class="text-xl font-bold">{{ useCurrencyFormatter(card.amount) }} <span
+          <p class="font-[400] text-[#7A7A9D] text-base md:text-sm lg:text-base">{{ card.title }}</p>
+          <p class="text-xl font-bold md:text-xs lg:text-xl">{{ useCurrencyFormatter(card.amount) }} <span
               class="uppercase text-[#B2B7C1] ml-1">uzs</span></p>
         </div>
       </div>
