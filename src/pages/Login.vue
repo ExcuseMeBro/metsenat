@@ -3,8 +3,10 @@ import { computed, reactive, ref, watch } from 'vue';
 import ClubLogo from '../components/common/ClubLogo.vue';
 import SpinnerIcon from '../assets/icons/SpinnerIcon.vue';
 import { useAuthStore } from '../stores/auth.store';
+import { useRouter } from 'vue-router';
 
 const { login } = useAuthStore()
+const router = useRouter()
 
 const loginData = reactive({
   login: '',
@@ -12,6 +14,11 @@ const loginData = reactive({
 })
 
 const isLoading = computed(() => useAuthStore().isLoading)
+const isLoggedIn = computed(() => useAuthStore().isLoggedIn)
+
+watch(() => isLoggedIn.value, (val) => {
+  if (val) router.push('/dashboard')
+})
 
 const loginDashboard = () => {
   login(loginData.login, loginData.password)

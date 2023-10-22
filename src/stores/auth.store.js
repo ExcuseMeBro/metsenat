@@ -1,14 +1,13 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import authService from "../services/auth.service";
-import { useRouter } from "vue-router";
 import { toast } from "vue-sonner";
-
-const router = useRouter();
 
 export const useAuthStore = defineStore("auth", () => {
   const user = ref(null);
   const isLoading = ref(false);
+  const isLoggedIn = ref(false);
+
   user.value = JSON.parse(localStorage.getItem("user"));
 
   function login(login, password) {
@@ -20,11 +19,11 @@ export const useAuthStore = defineStore("auth", () => {
         password: password,
       })
       .then((res) => {
-        console.log(res?.data);
         localStorage.setItem("user", JSON.stringify(res?.data));
-        router.push("/dashboard");
+        isLoggedIn.value = true
       })
       .catch((err) => {
+        console.log(err);
         toast.error("Login yoki parol noto`g`ri!");
       })
       .finally(() => {
@@ -38,5 +37,5 @@ export const useAuthStore = defineStore("auth", () => {
     window.location.reload();
   }
 
-  return { user, login, logout, isLoading };
+  return { user, login, logout, isLoading, isLoggedIn };
 });

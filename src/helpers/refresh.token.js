@@ -6,12 +6,12 @@ export async function refreshToken() {
     /* REFRESH TOKEN REQUEST */
     const response = await PublicAxiosService.get('/auth/refresh/', {
       headers: {
-        "X-CSRFToken": oldSession?.refreshToken,
+        "X-CSRFToken": oldSession?.refresh,
       },
     })
 
     const session = response?.data
-    if (!session?.token) {
+    if (!session?.access) {
       localStorage.removeItem('user')
     }
 

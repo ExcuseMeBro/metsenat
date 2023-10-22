@@ -1,10 +1,11 @@
 import { PublicAxiosService } from "./axios.service";
+import { toast } from "vue-sonner";
 class AuthService {
   async login(user) {
-    await PublicAxiosService.post("/auth/login/", {
-      "username": user.login,
-      "password": user.password,
-    });
+    return await PublicAxiosService.post("/auth/login/", {
+      username: user.login,
+      password: user.password,
+    })
   }
 
   async logout() {
