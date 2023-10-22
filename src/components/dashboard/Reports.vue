@@ -37,7 +37,7 @@ const commonData = ref(null)
 onMounted(() => {
   dashboardService.getCommonData().then((res) => {
     isLoadingCommonData.value = false
-    commonData.value = res
+    commonData.value = res?.data
   }).catch((err) => {
     console.log("Error while getting common data");
   })

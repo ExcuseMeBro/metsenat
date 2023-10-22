@@ -11,7 +11,6 @@ export const useAuthStore = defineStore("auth", () => {
   user.value = JSON.parse(localStorage.getItem("user"));
 
   function login(login, password) {
-    console.log(login, password);
     isLoading.value = true;
     authService
       .login({
