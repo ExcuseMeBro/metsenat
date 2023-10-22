@@ -3,6 +3,7 @@ import { refreshToken } from '../helpers/refresh.token.js'
 
 export const PublicAxiosService = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
+  headers: { 'Content-Type': 'application/json' },
 })
 
 const Axios = axios.create({

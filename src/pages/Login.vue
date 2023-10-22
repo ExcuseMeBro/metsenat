@@ -1,26 +1,20 @@
 <script setup>
-import { reactive, ref } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import ClubLogo from '../components/common/ClubLogo.vue';
 import SpinnerIcon from '../assets/icons/SpinnerIcon.vue';
 import { useAuthStore } from '../stores/auth.store';
-import { useRouter } from 'vue-router';
 
-const router = useRouter()
+const { login } = useAuthStore()
 
 const loginData = reactive({
   login: '',
   password: ''
 })
 
-const isLoading = ref(false)
+const isLoading = computed(() => useAuthStore().isLoading)
 
-const login = () => {
-  isLoading.value = true
-  setTimeout(() => {
-    useAuthStore().login(loginData.login, loginData.password)
-    router.push('/dashboard')
-    isLoading.value = false
-  }, 1000)
+const loginDashboard = () => {
+  login(loginData.login, loginData.password)
 }
 </script>
 <template>
@@ -43,7 +37,7 @@ const login = () => {
         <SpinnerIcon class="mr-2 w-7 h-7" />
         Ma'lumotlar tekshirilmoqda...
       </button>
-      <button v-else @click="login()"
+      <button v-else @click="loginDashboard()"
         class="h-[50px] w-full font-medium text-[15px] bg-[#2E5BFF] rounded-md flex items-center justify-center text-white">
         Kirish
       </button>
