@@ -4,6 +4,7 @@ import ClubLogo from '../components/common/ClubLogo.vue';
 import SpinnerIcon from '../assets/icons/SpinnerIcon.vue';
 import { useAuthStore } from '../stores/auth.store';
 import { useRouter } from 'vue-router';
+import vueRecaptcha from 'vue3-recaptcha2';
 
 const { login } = useAuthStore()
 const router = useRouter()
@@ -19,6 +20,8 @@ const isLoggedIn = computed(() => useAuthStore().isLoggedIn)
 watch(() => isLoggedIn.value, (val) => {
   if (val) router.push('/dashboard')
 })
+
+const key = computed(() => import.meta.env.VITE_GOOGLE_API_KEY)
 
 const loginDashboard = () => {
   login(loginData.login, loginData.password)
@@ -39,6 +42,8 @@ const loginDashboard = () => {
         <input type="password" v-model="loginData.password" id="password" placeholder="*******"
           class="h-[42px] custom-input-bg border bg-[#e0e7ff3b] px-3 border-[#E0E7FF] outline-none rounded-md">
       </div>
+      <vue-recaptcha sitekey="key" size="normal">
+      </vue-recaptcha>
       <button v-if="isLoading" disabled
         class="h-[50px] w-full font-medium text-[15px] bg-[#5578f9] rounded-md flex items-center justify-center text-white">
         <SpinnerIcon class="mr-2 w-7 h-7" />
