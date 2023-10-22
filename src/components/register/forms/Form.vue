@@ -65,7 +65,7 @@ const submitData = () => {
     </div>
     <div class="flex flex-col space-y-2">
       <p class="text-xs font-medium uppercase">To‘lov summasi</p>
-      <div class="grid grid-cols-3 gap-4">
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
         <div v-for="(pa, idx) in payment_amounts" :key="idx">
           <SumCard @click="getSelectedAmount(pa)" :is-selected="formData.payment_amount === pa" :price="pa"
             class="flex" />
@@ -75,11 +75,11 @@ const submitData = () => {
           <CheckedIcon v-if="isSelectedAnother" v-motion-pop class="absolute -right-2 -top-2" />
           <p class="text-lg font-medium uppercase">Boshqa</p>
         </div>
-        <div v-if="isSelectedAnother" v-motion-slide-left class="flex col-span-3 space-y-2">
-          <input type="text" v-maska data-maska="0.99" data-maska-tokens="0:\d:multiple|9:\d:optional"
-            v-model="formData.payment_amount" placeholder="0"
-            class="h-[42px] custom-input-bg border bg-[#e0e7ff3b] w-full px-3 border-[#E0E7FF] outline-none rounded-md">
-        </div>
+      </div>
+      <div v-if="isSelectedAnother" v-motion-slide-left class="flex col-span-3 space-y-2">
+        <input type="text" v-maska data-maska="0.99" data-maska-tokens="0:\d:multiple|9:\d:optional"
+          v-model="formData.payment_amount" placeholder="0"
+          class="h-[42px] custom-input-bg border bg-[#e0e7ff3b] w-full px-3 border-[#E0E7FF] outline-none rounded-md">
       </div>
     </div>
     <div v-if="props.isLegalForm" v-motion-slide-left class="flex flex-col space-y-2">

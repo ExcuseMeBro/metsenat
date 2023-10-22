@@ -7,7 +7,7 @@ const isSubmitted = computed(() => useRegisterStore().isSubmitted)
 
 </script>
 <template>
-  <div class="max-h-[calc(100vh-88px)] w-full px-20 py-16 overflow-auto">
+  <div class="max-h-[calc(100vh-88px)] w-full p-5 lg:pr-20 py-16 overflow-auto">
     <div v-if="isSubmitted" class="space-y-7">
       <div class="flex items-center justify-center">
         <img src="/successfully_submit.png" alt="icon">
