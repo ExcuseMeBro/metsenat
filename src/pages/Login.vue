@@ -2,6 +2,10 @@
 import { reactive, ref } from 'vue';
 import ClubLogo from '../components/common/ClubLogo.vue';
 import SpinnerIcon from '../assets/icons/SpinnerIcon.vue';
+import { useAuthStore } from '../stores/auth.store';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 const loginData = reactive({
   login: '',
@@ -13,8 +17,10 @@ const isLoading = ref(false)
 const login = () => {
   isLoading.value = true
   setTimeout(() => {
+    useAuthStore().login(loginData.login, loginData.password)
+    router.push('/dashboard')
     isLoading.value = false
-  }, 2000)
+  }, 1000)
 }
 </script>
 <template>

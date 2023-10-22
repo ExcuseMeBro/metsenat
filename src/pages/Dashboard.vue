@@ -1,10 +1,10 @@
 <script setup>
+import Reports from '../components/dashboard/Reports.vue';
+
 
 </script>
 <template>
-  <div>
-    Dashboard
-  </div>
+  <Reports />
 </template>
 
 
