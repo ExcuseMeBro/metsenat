@@ -72,17 +72,17 @@ const submitData = () => {
         </div>
         <div @click="isSelectedAnother = true" :class="isSelectedAnother ? 'border-[#2E5BFF]' : 'border-[#E0E7FF]'"
           class="relative cursor-pointer rounded-[5px] border-2 h-[60px] flex items-center justify-center">
-          <CheckedIcon v-show="isSelectedAnother" class="absolute -right-2 -top-2" />
+          <CheckedIcon v-if="isSelectedAnother" v-motion-pop class="absolute -right-2 -top-2" />
           <p class="text-lg font-medium uppercase">Boshqa</p>
         </div>
-        <div v-if="isSelectedAnother" class="flex col-span-3 space-y-2">
+        <div v-if="isSelectedAnother" v-motion-slide-left class="flex col-span-3 space-y-2">
           <input type="text" v-maska data-maska="0.99" data-maska-tokens="0:\d:multiple|9:\d:optional"
             v-model="formData.payment_amount" placeholder="0"
             class="h-[42px] custom-input-bg border bg-[#e0e7ff3b] w-full px-3 border-[#E0E7FF] outline-none rounded-md">
         </div>
       </div>
     </div>
-    <div v-if="props.isLegalForm" class="flex flex-col space-y-2">
+    <div v-if="props.isLegalForm" v-motion-slide-left class="flex flex-col space-y-2">
       <label for="company_name" class="text-xs font-medium uppercase">Tashkilot nomi</label>
       <input type="text" v-model="formData.company_name" id="company_name" placeholder="Orient group"
         class="h-[42px] custom-input-bg border bg-[#e0e7ff3b] px-3 border-[#E0E7FF] outline-none rounded-md">

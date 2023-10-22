@@ -19,8 +19,8 @@ const isLegal = ref(false)
       </div>
     </div>
     <div class="mt-7">
-      <LegalEntity v-if="isLegal" />
-      <PhysicalPerson v-else />
+      <LegalEntity v-if="isLegal" v-motion-slide-right />
+      <PhysicalPerson v-else v-motion-slide-left />
     </div>
   </div>
 </template>

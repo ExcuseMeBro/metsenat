@@ -19,8 +19,8 @@ const loginDashboard = () => {
 </script>
 <template>
   <div class="flex flex-col items-center bg-[#F5F5F7] justify-center w-full h-screen">
-    <ClubLogo />
-    <div class="p-8 mt-12 bg-white w-96 shadow-6xl rounded-xl space-y-7">
+    <ClubLogo v-motion-pop />
+    <div v-motion-slide-bottom class="p-8 mt-12 bg-white w-96 shadow-6xl rounded-xl space-y-7">
       <h1 class="text-2xl font-bold">Kirish</h1>
       <div class="flex flex-col space-y-2 mt-11">
         <label for="login" class="text-xs font-medium uppercase">Login</label>

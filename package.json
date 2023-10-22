@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueuse/motion": "^2.0.0",
     "apexcharts": "^3.44.0",
     "axios": "^1.5.1",
     "maska": "^2.1.10",
