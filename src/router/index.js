@@ -59,7 +59,7 @@ const router = createRouter({
           component: () => import("@/pages/Dashboard.vue"),
           meta: {
             title: "Dashboard",
-            protected: true,
+            protected: false,
           },
         },
       ],
