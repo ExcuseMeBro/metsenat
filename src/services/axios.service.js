@@ -15,11 +15,11 @@ const Axios = axios.create({
 /* ALL AXIOS REQUESTS */
 Axios.interceptors.request.use(
   async (config) => {
-    const session = JSON.parse(localStorage.getItem('session'))
-    if (session?.accessToken) {
+    const session = JSON.parse(localStorage.getItem('user'))
+    if (session?.token) {
       config.headers = {
         ...config.headers,
-        Authorization: `Bearer ${session?.accessToken}`,
+        "X-CSRFToken": session?.token,
       }
     }
 
@@ -33,14 +33,14 @@ Axios.interceptors.response.use(
   (response) => response?.data,
   async (error) => {
     const config = error?.config
-    if (error?.response?.status === 403 && !config?.sent) {
+    if (error?.response?.status === 401 && !config?.sent) {
       config.sent = true
 
       const result = await refreshToken()
-      if (result?.accessToken) {
+      if (result?.token) {
         config.headers = {
           ...config.headers,
-          Authorization: `Bearer ${result?.accessToken}`,
+          "X-CSRFToken": result?.token,
         }
       }
       let res = await axios(config)
