@@ -1,5 +1,7 @@
 <script setup>
 import { Toaster } from 'vue-sonner'
+import { useRecaptchaProvider } from 'vue-recaptcha/head'
+useRecaptchaProvider()
 </script>
 
 <template>

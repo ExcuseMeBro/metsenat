@@ -4,6 +4,7 @@ import ClubLogo from '../components/common/ClubLogo.vue';
 import SpinnerIcon from '../assets/icons/SpinnerIcon.vue';
 import { useAuthStore } from '../stores/auth.store';
 import { useRouter } from 'vue-router';
+// import { Checkbox } from 'vue-recaptcha/head';
 
 const { login } = useAuthStore()
 const router = useRouter()
@@ -17,11 +18,24 @@ const isLoading = computed(() => useAuthStore().isLoading)
 const isLoggedIn = computed(() => useAuthStore().isLoggedIn)
 
 watch(() => isLoggedIn.value, (val) => {
-  if (val) router.push('/dashboard')
+  if (val) {
+    setTimeout(() => {
+      router.push('/dashboard')
+    }, 500)
+  }
+})
+
+const response = ref()
+const isNotRobot = ref(false)
+
+watch(() => response.value, (val) => {
+  console.log(val);
 })
 
 const loginDashboard = () => {
-  login(loginData.login, loginData.password)
+  if (isNotRobot) {
+    login(loginData.login, loginData.password)
+  }
 }
 </script>
 <template>
@@ -39,6 +53,7 @@ const loginDashboard = () => {
         <input type="password" v-model="loginData.password" id="password" placeholder="*******"
           class="h-[42px] custom-input-bg border bg-[#e0e7ff3b] px-3 border-[#E0E7FF] outline-none rounded-md">
       </div>
+      <Checkbox v-model="response" />
       <button v-if="isLoading" disabled
         class="h-[50px] w-full font-medium text-[15px] bg-[#5578f9] rounded-md flex items-center justify-center text-white">
         <SpinnerIcon class="mr-2 w-7 h-7" />
