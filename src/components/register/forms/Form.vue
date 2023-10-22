@@ -1,9 +1,12 @@
 <script setup>
-import { reactive, ref, watch } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import { vMaska } from "maska"
 import SumCard from '../SumCard.vue';
 import CheckedIcon from '../../../assets/icons/CheckedIcon.vue';
 import SpinnerIcon from '../../../assets/icons/SpinnerIcon.vue';
+import { useRegisterStore } from '../../../stores/register.store';
+import { cleanObjectEmptyFields } from '../../../helpers/cleanEmptyFields.js'
+import { toast } from "vue-sonner";
 
 const props = defineProps({
   isLegalForm: { required: true }
@@ -29,20 +32,24 @@ const formData = reactive({
   payment_amount: null,
   company_name: ''
 })
-
-const isSubmitted = ref(false)
-const isLoading = ref(false)
+const isLoading = computed(() => useRegisterStore().isLoading)
 
 const submitData = () => {
-  isLoading.value = true
-  setTimeout(() => {
-    isSubmitted.value = true
-    isLoading.value = false
-  }, 2000)
+  if (!formData.full_name) {
+    toast.error("Iltimos, ismingizni kiriting!")
+  } else if (!formData.phone) {
+    toast.error("Iltimos, telefon raqamingizni kiriting!")
+  } else if (!formData.payment_amount) {
+    toast.error("Iltimos, summani kiriting!")
+  } else if (props.isLegalForm && !formData.company_name) {
+    toast.error("Iltimos, tashkilot nomini kiriting!")
+  } else {
+    useRegisterStore().register(cleanObjectEmptyFields(formData))
+  }
 }
 </script>
 <template>
-  <div v-if="!isSubmitted" class="space-y-7">
+  <div class="space-y-7">
     <div class="flex flex-col space-y-2">
       <label for="full_name" class="text-xs font-medium uppercase">F.I.Sh. (Familiya Ism Sharifingiz)</label>
       <input type="text" v-model="formData.full_name" id="full_name" placeholder="Abdullayev Abdulla Abdulla o`g`li"
@@ -82,24 +89,13 @@ const submitData = () => {
     </div>
     <button v-if="isLoading" disabled
       class="h-[50px] w-full font-medium text-[15px] bg-[#5578f9] rounded-md flex items-center justify-center text-white">
-      <SpinnerIcon class="mr-2 w-7 h-7"/>
+      <SpinnerIcon class="mr-2 w-7 h-7" />
       Yuborilmoqda...
     </button>
     <button v-else @click="submitData()"
       class="h-[50px] w-full font-medium text-[15px] bg-[#2E5BFF] rounded-md flex items-center justify-center text-white">
       Yuborish
     </button>
-  </div>
-  <div v-else class="space-y-7">
-    <div class="flex items-center justify-center">
-      <img src="/successfully_submit.png" alt="icon">
-    </div>
-    <div class="w-full text-center">
-      <h1 class="text-base font-medium">Ma’lumotlar tekshirish uchun yuborildi.</h1>
-      <p class="text-[#B2B7C1] text-xs">Tez orada siz bilan operatorimiz bog’lanib, barcha ma’lumotlarni aniqlashtiradi.
-      </p>
-    </div>
-    <pre>{{ formData }}</pre>
   </div>
 </template>
 
