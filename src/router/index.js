@@ -11,6 +11,7 @@ const router = createRouter({
       children: [
         {
           path: "/",
+          redirect: "/register",
           name: "Asosiy",
           component: () => import("@/pages/Home.vue"),
           meta: {
@@ -20,6 +21,7 @@ const router = createRouter({
         },
         {
           path: "/grants",
+          redirect: "/register",
           name: "Grantlar",
           component: () => import("@/pages/Grants.vue"),
           meta: {
@@ -38,6 +40,7 @@ const router = createRouter({
         },
         {
           path: "/tax",
+          redirect: "/register",
           name: "Soliq imtiyozlari",
           component: () => import("@/pages/Tax.vue"),
           meta: {

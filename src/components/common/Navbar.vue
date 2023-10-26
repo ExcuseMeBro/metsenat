@@ -7,17 +7,17 @@ const menus = ref([
   {
     id: 1,
     title: "Asosiy",
-    link: '/'
+    link: '/register'
   },
   {
     id: 2,
     title: "Grantlar",
-    link: "/grants"
+    link: "/register"
   },
   {
     id: 3,
     title: "Soliq imtiyozlari",
-    link: '/tax'
+    link: '/register'
   },
 ])
 </script>
