@@ -3,11 +3,9 @@ import { computed, reactive, ref, watch } from 'vue';
 import ClubLogo from '../components/common/ClubLogo.vue';
 import SpinnerIcon from '../assets/icons/SpinnerIcon.vue';
 import { useAuthStore } from '../stores/auth.store';
-import { useRouter } from 'vue-router';
 import vueRecaptcha from 'vue3-recaptcha2';
 
 const { login } = useAuthStore()
-const router = useRouter()
 
 const loginData = reactive({
   login: '',
@@ -15,16 +13,30 @@ const loginData = reactive({
 })
 
 const isLoading = computed(() => useAuthStore().isLoading)
-const isLoggedIn = computed(() => useAuthStore().isLoggedIn)
-
-watch(() => isLoggedIn.value, (val) => {
-  if (val) router.push('/dashboard')
-})
 
 const key = computed(() => import.meta.env.VITE_GOOGLE_API_KEY)
 
 const loginDashboard = () => {
   login(loginData.login, loginData.password)
+}
+
+// GOOGLE reCAPTCHA
+const isNotABot = ref(false)
+
+const verify = () => {
+  isNotABot.value = true
+}
+
+const expire = () => {
+  window.location.reload()
+}
+
+const error = () => {
+  window.location.reload()
+}
+
+const fail = () => {
+  window.location.reload()
 }
 </script>
 <template>
@@ -42,15 +54,19 @@ const loginDashboard = () => {
         <input type="password" v-model="loginData.password" id="password" placeholder="*******"
           class="h-[42px] custom-input-bg border bg-[#e0e7ff3b] px-3 border-[#E0E7FF] outline-none rounded-md">
       </div>
-      <vue-recaptcha sitekey="6LdStc8oAAAAAEiXu3d0zVAYeYEl64kbvyNwsKu6" size="normal">
+      <vue-recaptcha @verify="verify" @fail="fail" @error="error" @expire="expire" sitekey="6LdStc8oAAAAAEiXu3d0zVAYeYEl64kbvyNwsKu6" size="normal">
       </vue-recaptcha>
       <button v-if="isLoading" disabled
         class="h-[50px] w-full font-medium text-[15px] bg-[#5578f9] rounded-md flex items-center justify-center text-white">
         <SpinnerIcon class="mr-2 w-7 h-7" />
         Ma'lumotlar tekshirilmoqda...
       </button>
-      <button v-else @click="loginDashboard()"
+      <button v-else-if="isNotABot" @click="loginDashboard()"
         class="h-[50px] w-full font-medium text-[15px] bg-[#2E5BFF] rounded-md flex items-center justify-center text-white">
+        Kirish
+      </button>      
+      <button v-else disabled
+        class="h-[50px] w-full opacity-50 font-medium text-[15px] bg-[#2E5BFF] rounded-md flex items-center justify-center text-white">
         Kirish
       </button>
     </div>

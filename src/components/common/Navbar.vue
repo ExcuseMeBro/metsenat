@@ -36,10 +36,10 @@ const menus = ref([
             <LoginIcon />
             <p class="hidden font-bold sm:block">Kirish</p>
           </router-link>
-          <router-link to="/register"
+          <a href="/register"
             class="hidden sm:block border-[#3366FF] text-sm text-[#3366FF] whitespace-nowrap px-8 py-2 border-2 rounded-lg">
             Ro‘yxatdan o’tish
-          </router-link>
+          </a>
         </div>
       </div>
     </div>
