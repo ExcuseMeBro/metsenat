@@ -42,7 +42,7 @@ const loginDashboard = () => {
         <input type="password" v-model="loginData.password" id="password" placeholder="*******"
           class="h-[42px] custom-input-bg border bg-[#e0e7ff3b] px-3 border-[#E0E7FF] outline-none rounded-md">
       </div>
-      <vue-recaptcha sitekey="key" size="normal">
+      <vue-recaptcha sitekey="6LdStc8oAAAAAEiXu3d0zVAYeYEl64kbvyNwsKu6" size="normal">
       </vue-recaptcha>
       <button v-if="isLoading" disabled
         class="h-[50px] w-full font-medium text-[15px] bg-[#5578f9] rounded-md flex items-center justify-center text-white">
