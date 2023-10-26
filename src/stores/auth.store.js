@@ -18,6 +18,7 @@ export const useAuthStore = defineStore("auth", () => {
         password: password,
       })
       .then((res) => {
+        user.value = res?.data
         localStorage.setItem("user", JSON.stringify(res?.data));
         isLoggedIn.value = true
         window.location.href = '/dashboard'

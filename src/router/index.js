@@ -79,6 +79,7 @@ const router = createRouter({
           component: () => import("@/pages/Login.vue"),
           meta: {
             title: "Tizimga kirish",
+            protected: false,
           },
         },
       ],
@@ -93,11 +94,19 @@ router.beforeEach(async (to, from) => {
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
   const isAuthenticated = authStore.user !== null;
-  if (to.meta.protected && !isAuthenticated) {
-    next({ name: "Asosiy" });
-  } else {
-    next();
+  if (to.name === "Login") {
+    if (isAuthenticated) {
+      next("/dashboard");
+    }
   }
+
+  if (to.meta.protected) {
+    if (!isAuthenticated) {
+      next("/auth/login");
+    }
+  }
+
+  next();
 });
 
 export default router;
